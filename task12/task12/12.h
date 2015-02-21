@@ -13,3 +13,18 @@ class Artist
          char name[256];
          int career_Beginning;
 };
+
+
+class Musician: public Artist
+{
+   private:
+          int albums_Amount;
+          char instrument[64];
+    
+      
+           
+    public:
+         Musician(char*, int, int, char*);
+         void showInfo();
+    
+};
