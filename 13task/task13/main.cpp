@@ -6,11 +6,12 @@
 
 using namespace std;
 
-template <template<typename, typename>class C, typename T>
-T sum(C<T, allocator<T>> &cont)
+template <class C>
+
+C::value_type sum (C<C::value_type> &cont)
 {
-	T elem_Sum = 0;
-	C<T, allocator<T>>::iterator it;
+	C::value_type elem_Sum = 0;
+	C<C::value_type>::iterator it;
 	for(it=cont.begin(); it!=cont.end(); it++)
 		elem_Sum = elem_Sum + (*it);
 
