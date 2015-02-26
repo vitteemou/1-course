@@ -3,12 +3,13 @@
 #include <list>
 #include <string>
 #include <deque>
+#include <map>
 
 using namespace std;
 
 template <class C>
 
-typename C::value_type sum (C cont)
+typename C::value_type sum (C& const cont)
 {
 	typename C::value_type elem_Sum = 0;
 	typename C::iterator it;
@@ -34,9 +35,10 @@ int main()
 	int result1 = sum(cont_1);  
 	cout<<"Sum of deque's elements: "<<result1<<endl;
 	
-	vector<float> cont_2(4, 1.0001);
-	float result2 = sum(cont_2);
-	cout<<"Sum of vector's elements: "<<result2<<endl;
+	vector<double> cont_2(4, 1.0001);
+	double result2 = sum(cont_2);
+
+    cout<<"Sum of vector's elements: "<<result2<<endl;
 
 	return 0;
 
