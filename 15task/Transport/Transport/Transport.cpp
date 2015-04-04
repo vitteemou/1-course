@@ -188,7 +188,6 @@ pair<Null_Iter, Null_Iter> Transport::getNullStops()
 
 }*/
 
-template <class T>
 string Transport::maxRoutes()
 {
 	map<int, string> sizeMap;
