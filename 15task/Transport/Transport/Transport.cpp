@@ -1,24 +1,15 @@
 
 #include "Transport.h"
-//#include "Null_Iter.h"
 
 using namespace std;
 
 //////////General////////////
-istream& operator >> (istream& is, Node& obj)
-{
-	is >> obj.number >> obj.type;
-	return is;
-}
 
 
-ostream& operator << (ostream& os, const Node& obj)
-{
-	os << obj.number << ' ' << obj.type;
-	return os;
-}
 
-/*bool operator <(const Node& obj1, const Node& obj2)
+/*
+template<class T, class C>
+bool operator <(const C& obj1, const C& obj2)
 {
 	if (obj1.type == obj2.type)
 		return (obj1.number < obj2.number);
@@ -26,31 +17,53 @@ ostream& operator << (ostream& os, const Node& obj)
 		return (obj1.type < obj2.type);
 }*/
 
-bool operator <(const Node obj1, const Node obj2)
+
+////////Node_Iter//////////
+
+/*template<class T, class C>
+Transport<T,C>::Node_Iter::Node_Iter() : basicIter<T,C>()
 {
-	if (obj1.type == obj2.type)
-		return (obj1.number < obj2.number);
-	else
-		return (obj1.type < obj2.type);
 }
 
-
-bool operator ==(const Node& obj1, const Node& obj2)
+template<class T, class C>
+Transport<T, C>::Node_Iter::Node_Iter(Nvector_iter& basic)
 {
-	return ((obj1.number == obj2.number) && (obj1.type == obj2.type));
+		basicIter = basic;
 }
 
-bool operator !=(const Node& obj1, const Node& obj2)
+template<class T, class C>
+T Transport<T, C>::Node_Iter:: operator *()
 {
-	return ((obj1.number != obj2.number) || (obj1.type != obj2.type));
+		return (**basicIter).number;
 }
 
+template<class T, class C>
+//typedef Transport::Node_Iter Node_Iter;
+
+const typename (Transport<T, C>::Node_Iter)& Transport<T, C>::Node_Iter:: operator ++(int)
+{
+		++basicIter;
+		return *this;
+}
+
+template<class T, class C>
+bool Transport<T, C>::Node_Iter:: operator == (Node_Iter& obj)
+{
+		return (basicIter == obj.basicIter);
+}
+
+template<class T, class C>
+bool Transport<T, C>::Node_Iter:: operator != (Node_Iter& obj)
+{
+		return (basicIter != obj.basicIter);
+}*/
 
 ////////////Transport//////////////
+/*template<class T, class C>
 
-void Transport::addRoute(int number, string type, Svector_iter begin, Svector_iter end)
+void Transport<T,C>::addRoute(T number, string type, Svector_iter begin, Svector_iter end)
 {
-	static Node obj;
+	static C obj;
 	Svector_type v;
 	Svector_iter it;
 
@@ -62,7 +75,7 @@ void Transport::addRoute(int number, string type, Svector_iter begin, Svector_it
 		v.push_back(*it);
 	}
 
-	routes.insert(pair<Node, vector<string> >(obj, v));
+	routes.insert(pair<C, vector<string> >(obj, v));
 
 	sort(v.begin(), v.end());
 
@@ -79,43 +92,47 @@ void Transport::addRoute(int number, string type, Svector_iter begin, Svector_it
 	}
 
 }
-
-void Transport::deleteRoute(int number, string type)
+/*
+template<class T, class C>
+void Transport<T,C>::deleteRoute(T number, string type)
 {
-	Node obj;
+	C obj;
 	obj.number = number;
 	obj.type = type;
 
 	routes.erase(obj);
 }
 
-
-void Transport::addStop(string name)
+template<class T, class C>
+void Transport<T,C>::addStop(string name)
 {
 	Nvector_type v;
-	stops.insert(pair<string, vector<Node*> >(name, v));
+	stops.insert(pair<string, vector<C_ptr> >(name, v));
 }
 
-
-void Transport::deleteStop(string name)
+template<class T, class C>
+void Transport<T,C>::deleteStop(string name)
 {
    Nvector_iter stopIt = stops[name].begin();
 
    while (stopIt != stops[name].end() && (!routes[**stopIt].empty()))
    {
-       Node obj = (**stopIt);
+	   cout << "Circle" << endl;
+	   C obj = (**stopIt);
 
        if((routes[obj]).size() == 1)
        {
            Nvector_iter term = stopIt;
-           deleteRoute((**stopIt).number, (**stopIt).type);
+           deleteRoute(obj.number, obj.type);
            stopIt = term;
+		   cout << "ok1" << endl;
        }
        else
        {
            Svector_iter routeIt;
            routeIt = find(routes[obj].begin(), routes[obj].end(), name);
            routes[obj].erase(routeIt);
+		   cout << "ok2" << endl;
        }
    }
         stopIt++;
@@ -124,46 +141,9 @@ void Transport::deleteStop(string name)
 }
 
 
-pair<Node_Iter, Node_Iter> Transport::getRoutesByStop(string name)
-{
-	Node_Iter begin (stops[name].begin());
-	Node_Iter end (stops[name].end());
-
-	return make_pair(begin, end);
-}
-
-keyNode_pair Transport::getRoutesByType(string type, int x, int y)
-{
-	Node firstNode(x, type);
-	Node lastNode(y, type);
-	
-	keyNode_iter it = routes.begin();
-
-
-	while ((it->first < firstNode) && (it != routes.end()))
-	{
-		cout << it->first << ' ';
-		it++;
-	}
-
-	keyNode_iter begin = it;
-
-	it = routes.end();
-	it--;
-
-	while ((lastNode < it->first) && (it != routes.begin()))
-		it--;
-
-	it++;
-	keyNode_iter end = it;
-
-	return make_pair(begin, end);
-
-}
-
 /*
-template <class T>
-pair<Null_Iter, Null_Iter> Transport::getNullStops()
+template<class T, class C>
+pair<Null_Iter, Null_Iter> Transport<T,C>::getNullStops()
 {
 	
 	keyString_iter basicIt = stops.begin();
@@ -186,22 +166,23 @@ pair<Null_Iter, Null_Iter> Transport::getNullStops()
 
 	return make_pair(begin, end);
 
-}*/
+}
 
-string Transport::maxRoutes()
+template<class T, class C>
+string Transport<T,C>::maxRoutes()
 {
-	map<int, string> sizeMap;
+	map<T, string> sizeMap;
 	keyString_iter it;
 	for (it = stops.begin(); it != stops.end(); it++)
 	{
 		int size = (it->second).size();
-		sizeMap.insert(pair<int, string>(size, it->first));
+		sizeMap.insert(pair<T, string>(size, it->first));
 	}
 
-	map<int, string>::iterator it_m;
+	map<T, string>::iterator it_m;
 	it_m = sizeMap.end();
 	it_m--;
 
 
 	return (it_m->second);
-}
+}*/
