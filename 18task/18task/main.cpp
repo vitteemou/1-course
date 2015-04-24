@@ -16,8 +16,6 @@ int main()
 
 	_asm
 	{
-		//mov eax, a	
-		//mov ebx, b
 
 	  beg_ :
 		   cmp numb, 1
@@ -52,8 +50,8 @@ int main()
 		   mov j, esi
 
 			   //////////for//////
-		 mov eax, 1 // произведение
-	     mov ecx, j // счетчик 
+		 mov eax, 1
+	         mov ecx, j 
 		 dec j
 		 mov esi, j 
 
@@ -65,25 +63,6 @@ int main()
 		   loop for_beg
 		   mov divAmount, eax
 	}
-
-	/*while (numb != 1)
-	{
-		if (numb%i == 0)
-		{
-			int degCount = 0; 
-			while (numb%i == 0)
-			{
-				numb = numb / i;
-				degCount++;
-			}
-			arr[j] = degCount;
-			j++;
-		}
-		i++;
-	}
-
-	for (int k = 0; k < j; k++)  //k < j
-		divAmount *= (arr[k] + 1);*/
 
 	cout << "Amount of divisors of the number: " << divAmount << endl;
 
