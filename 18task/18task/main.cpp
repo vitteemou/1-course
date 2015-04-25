@@ -9,63 +9,44 @@ int main()
 	cin >> numb;
 
 	int i = 2;
-	int arr[1000];
-	int j = 0;
-	int divAmount = 1;  // amount of divisors
-	int degCount = 0;   // counter of degrees
+	int divAmount  // amount of divisors
+	int degCount;  // counter of degrees
 
 	_asm
 	{
+            mov ecx, 1
 
-	  beg_ :
+	    beg_:
 		   cmp numb, 1
 		   je end_
 
 		   mov degCount, 0
 
-		   mov eax, numb
-		   mov ebx, i
-		   div ebx
+	    while_beg :
+		    mov eax, numb
+		    cdq
+		    div i
 
-	  /////////
+		    cmp edx, 0
+		    jne plus_
 
-	   while_beg :	   
-		   cmp edx, 0
-		   jne iplus_
+		    inc degCount
+		    mov numb, eax
+		    jmp while_beg
 
-		   mov numb, eax
-		   inc degCount
-		   jmp while_beg
+	    plus_ :
+		    inc degCount
+		    mov eax, degCount
+		    imul ecx, eax
+		    inc i
+		    jmp beg_
 
-	  /////////
-	       
-	  mov arr[esi], degCount
-	  inc esi
-
-	  iplus_ :
-		   inc i
-		   jmp beg_
-
-	  end_ :
-		   mov j, esi
-
-			   //////////for//////
-		 mov eax, 1
-	         mov ecx, j 
-		 dec j
-		 mov esi, j 
-
-	 for_beg : 
-		   inc arr[esi]
-		   mul arr[esi]
-		   dec esi 
-
-		   loop for_beg
-		   mov divAmount, eax
+	    end_ :
+		    mov divAmount, ecx
+	
 	}
 
 	cout << "Amount of divisors of the number: " << divAmount << endl;
 
-	system("PAUSE");
 	return 0;
 }
