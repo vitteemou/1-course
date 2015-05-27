@@ -1,4 +1,4 @@
-//9) ¬ матрице помен€ть местами столбцы с заданными номерами.
+//9) To exchange colomns with given numbers
 #include <iostream>
 
 using namespace std;
@@ -31,7 +31,7 @@ int main()
 		    dec c1
 			dec c2
 
-			mov ecx, 0// i Ц номер текущей строки A
+			mov ecx, 0 // i Ц number of the current string
 			xor ebx, ebx
 
 		begin_ :
