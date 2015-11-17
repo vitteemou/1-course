@@ -1,6 +1,4 @@
-
 #include "Transport.h"
-
 using namespace std;
 
 int main()
@@ -13,16 +11,13 @@ int main()
 	myRoute_1.push_back("Molodechno");
 
 	myTransport.addRoute("33", "Bus", myRoute_1.begin(), myRoute_1.end());
-
 	myTransport.addStop("Anusino");
 
 	cout << "routeAmount(): " << myTransport.routeAmount() << endl;
 	cout << "stopAmount(): " << myTransport.stopAmount() << endl;
 
 	Svector_type myRoute_2;
-
 	myRoute_2.push_back("Minsk");
-
 	myTransport.addRoute("55", "Bus", myRoute_2.begin(), myRoute_2.end());
 
 
@@ -50,8 +45,9 @@ int main()
 
 	Transport<string>::Node_Iter byStop;
 	for (byStop = iters_1.first; byStop != iters_1.second; byStop++)
+	{
 		cout << *(byStop) << "; ";
-
+	}
 	cout << endl;
 	
 	cout << "maxRoutes(): " << myTransport.maxRoutes() << endl;
@@ -61,8 +57,9 @@ int main()
 	
 	Transport<string>::keyNode_iter byType;
 	for (byType = iters_2.first; byType != iters_2.second; byType++)
+	{
 		cout << (byType->first).number << "; ";
-
+	}
 	cout << endl;
 
 	cout << "getNullStops()" << endl;
@@ -70,8 +67,9 @@ int main()
 
 	Transport<string>::Null_Iter myNulls;
 	for (myNulls = iters_3.first; myNulls != iters_3.second; ++myNulls)
+	{
 		cout << *(myNulls) << "; ";
-
+	}
 	cout << endl;
 
 	cout << "Before deleting of the stop" << endl;
@@ -84,14 +82,13 @@ int main()
 	cout << "After deleting of the stop" << endl;
 	cout << "routeAmount(): " << myTransport.routeAmount() << endl;
 	cout << "stopAmount(): " << myTransport.stopAmount() << endl;
-    cout << endl;
+        cout << endl;
 
 	myTransport.deleteRoute("33", "Bus");
 
 	cout << "After deleting of the route" << endl;
 	cout << "routeAmount(): " << myTransport.routeAmount() << endl;
 	cout << "stopAmount(): " << myTransport.stopAmount() << endl;
-
-	system("PAUSE");
+	
 	return 0;
 }
