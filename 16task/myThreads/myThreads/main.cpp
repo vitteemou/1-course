@@ -12,8 +12,13 @@ long long int sum = 0;
 void countNumber(long long int begin, long long int end, long long int numb)
 {
 	for (long long int i = begin; i < end; i++)
+	{
 		if (!(numb%i))
+		{
 			sum += i;
+		}
+		
+	}
 }
 
 int main()
@@ -48,9 +53,13 @@ int main()
 	auto differ = finish_Time - start_Time;
 
 	if (sum == numb)
+	{
 		cout << "This number is perfect" << endl;
+	}
 	else
+	{
 		cout << "This number is not perfect" << endl;
+	}
 
 	cout << "Worktime: " << duration_cast<milliseconds>(differ).count() << endl;
 
