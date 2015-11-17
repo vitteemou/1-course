@@ -22,9 +22,7 @@ Musician::Musician(char* ar_name, int ar_career,  int ar_amount, char* ar_instru
       career_Beginning = ar_career;
       albums_Amount = ar_amount;
       strcpy(instrument, ar_instrument);
-      
 }
-
 
 void Musician::showInfo()
 {
