@@ -1,22 +1,15 @@
-
-#include "Null_Iter.h"
-
-using namespace std;
-
-class Node_Iter
-{
-   
-public:
+class Node_Iter {
+   public:
 	Node_Iter() : basicIter()
 	{
 	}
 
 	Node_Iter(Nvector_iter& basic)
 	{
-		basicIter = basic;
-    }
+	       basicIter = basic;
+        }
 
-    int operator *()
+        int operator *()
 	{
 		return (**basicIter).number;
 	}
@@ -25,7 +18,7 @@ public:
 	{
 		++basicIter;
 		return *this;
-    }
+        }
   
 	bool operator == (Node_Iter& obj)
 	{
