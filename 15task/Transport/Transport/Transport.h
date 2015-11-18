@@ -5,21 +5,17 @@
 #include <string>
 #include <map>
 #include <vector>
-
 using namespace std;
 
-///////////Node///////////
 template<class T>
 struct Node
 {
-
 	Node(){}
 	Node(T n, string t)
 	{
 		this->number = n;
 		this->type = t;
 	}
-
 	T number;
 	string type;
 };
@@ -61,17 +57,11 @@ bool operator !=(const Node<T>& obj1, const Node<T>& obj2)
 
 typedef vector<string> Svector_type;
 typedef vector<string>::iterator Svector_iter;
-
-
-
-///////////Transport//////////
  
 template<class T, class C = Node<T> >
 class Transport
 {
-
 public:
-
 	typedef typename const C* C_ptr;
 	typedef typename vector<C_ptr> Nvector_type;
 	typedef typename vector<C_ptr>::iterator Nvector_iter;
@@ -83,23 +73,18 @@ public:
 	typedef typename map<string, Nvector_type>::iterator keyString_iter; //stops
 
 
-	///////////Node_Iter///////////
 	class Node_Iter
 	{
-
 	public:
-		
 		   Node_Iter() : basicIter()
-	       {
-	       }
+	           {
+	           }
 
-		  
 		   Node_Iter(Nvector_iter& basic)
 		   {
 			   basicIter = basic;
 		   }
 
-		   
 		   T operator *()
 		   {
 			   return (**basicIter).number;
@@ -126,13 +111,9 @@ public:
 
 	}; 
 
-
-	///////////////Null_Iter/////////////
-
 	class Null_Iter
 	{
 	public:
-
 
 		Null_Iter() : basicIter()
 		{
